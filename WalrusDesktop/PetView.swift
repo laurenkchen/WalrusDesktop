@@ -22,6 +22,10 @@ struct PetView: View {
                         updateMovement(in:geometry.size)
                     }
             }
+            .frame(
+                width:  geometry.size.width,
+                height: geometry.size.height
+                )
         }
         .background(Color.clear)
     }

@@ -27,7 +27,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         DispatchQueue.main.async{
             if let window = NSApplication.shared.windows.first(where: {$0.identifier?.rawValue == "pet"}){
-                if let screen = NSScreen.main {
+                window.styleMask = [.borderless]
+                if let screen = window.screen ?? NSScreen.main {
                     window.setFrame(screen.frame, display: true)
                 }
                 window.backgroundColor = .clear
