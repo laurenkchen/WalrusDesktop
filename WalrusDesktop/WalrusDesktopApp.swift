@@ -9,18 +9,58 @@ import SwiftUI
 import SwiftData
 import AppKit
 
+
+struct OpenSettingsOnLaunch: View {
+    @Environment(\.openWindow) private var openWindow
+    var body: some View {
+        Color.clear
+            .frame(width: 0, height:0)
+            .task{
+                openWindow(id: "settings")
+            }
+    }
+}
 @main
 struct WalrusDesktopApp: App{
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var settings = PetSettings()
+
     
     var body: some Scene{
         Window("WalrusPet", id: "pet"){
             
             PetView()
                 .background(Color.clear)
-            
+                .environmentObject(settings)
+                .background{
+                    OpenSettingsOnLaunch()
+                }
         }
         .windowStyle(.hiddenTitleBar)
+        
+        Window("wal rus settings", id: "settings"){
+        VStack(spacing:20) {
+            Text("settings")
+                .font(.title2)
+                .bold()
+            Image("BingusWindow")
+                .resizable()
+                .scaledToFit()
+                .frame(width:140, height:140)
+            
+            Text("Speed: \(settings.speed, specifier: "%.1f")")
+            
+            Slider(
+                value: $settings.speed,
+                in: 0...50,
+                step: 0.5
+            )
+        }
+                .padding(25)
+                .frame(width:320)
+                
+            }
+        .defaultSize(width: 320, height:350)
     }
 }
 class AppDelegate: NSObject, NSApplicationDelegate {

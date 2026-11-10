@@ -9,9 +9,11 @@ import SwiftUI
 internal import Combine
 
 struct PetView: View {
+    @EnvironmentObject var settings: PetSettings
     @State private var position: CGPoint = CGPoint(x:200,y:400)
     @State private var isMovingRight = true
-    let timer = Timer.publish(every: 0.05, on: .main, in: .common).autoconnect()
+    @State private var isMovingDown = true
+    let timer = Timer.publish(every: 1.0/60.0, on: .main, in: .common).autoconnect()
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -30,7 +32,7 @@ struct PetView: View {
         .background(Color.clear)
     }
     private func updateMovement(in screenFrame:CGSize) {
-        let speed: CGFloat = 3.0
+        let speed = CGFloat(settings.speed)
         if isMovingRight{
             position.x+=speed
             if position.x>screenFrame.width - 40{
@@ -41,6 +43,17 @@ struct PetView: View {
             position.x -= speed
             if position.x<40{
                 isMovingRight = true
+            }
+        }
+        if isMovingDown {
+            position.y += speed
+            if position.y > screenFrame.height - 40 {
+                isMovingDown = false
+            }
+        } else {
+            position.y -= speed
+            if position.y < 40 {
+                isMovingDown = true
             }
         }
     }

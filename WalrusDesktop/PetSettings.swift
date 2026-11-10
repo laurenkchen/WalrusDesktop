@@ -5,4 +5,8 @@
 //  Created by Lauren Chen on 11/8/26.
 //
 
-import Foundation
+import SwiftUI
+internal import Combine
+class PetSettings: ObservableObject {
+    @Published var speed: Double = 3.0
+}
