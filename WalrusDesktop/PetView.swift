@@ -17,13 +17,28 @@ struct PetView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Text("BINGUS!")
-                    .font(.system(size:60))
-                    .position(position)
-                    .onReceive(timer) { _ in
-                        updateMovement(in:geometry.size)
-                    }
+                Image("wal_rus")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height:200)
+                
+                
+                if !settings.wisdom.isEmpty {
+                    Text(settings.wisdom)
+                        .font(.system(size:14))
+                        .padding(10)
+                        .background(.white, in: RoundedRectangle(cornerRadius:12))
+                        .foregroundStyle(.black)
+                        .offset(y:-90)
+                    
+                }
             }
+                .position(position)
+                .onReceive(timer) { _ in
+                    updateMovement(in:geometry.size)
+                
+            }
+            
             .frame(
                 width:  geometry.size.width,
                 height: geometry.size.height

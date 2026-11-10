@@ -43,24 +43,30 @@ struct WalrusDesktopApp: App{
             Text("settings")
                 .font(.title2)
                 .bold()
-            Image("BingusWindow")
+                .onDisappear{
+                    NSApplication.shared.terminate(nil)
+                }
+            Image("wal_rus")
                 .resizable()
                 .scaledToFit()
-                .frame(width:140, height:140)
+                .frame(width:160, height:160)
             
             Text("Speed: \(settings.speed, specifier: "%.1f")")
             
             Slider(
                 value: $settings.speed,
                 in: 0...50,
-                step: 0.5
+                
             )
+            Button("wisdom!"){
+                settings.speak()
+            }
         }
                 .padding(25)
                 .frame(width:320)
                 
             }
-        .defaultSize(width: 320, height:350)
+        .defaultSize(width: 300, height:350)
     }
 }
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -85,5 +91,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 ]
             }
         }
+    }
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
     }
 }
