@@ -11,9 +11,10 @@ class PetSettings: ObservableObject {
     @Published var speed: Double = 3.0
     @Published var wisdom = ""
     let quotes = [
-        "hurro",
+        "harro",
         ":<",
-        "wal rus"
+        "wal rus",
+        "q = peg + cat",
     ]
     func speak () {
         wisdom = quotes.randomElement() ?? "wal rus"

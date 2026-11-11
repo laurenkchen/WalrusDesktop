@@ -38,11 +38,10 @@ struct WalrusDesktopApp: App{
         }
         .windowStyle(.hiddenTitleBar)
         
-        Window("wal rus settings", id: "settings"){
+        Window("wal rus", id: "settings"){
         VStack(spacing:20) {
             Text("settings")
-                .font(.title2)
-                .bold()
+                .font(.system(size: 26, weight: .bold, design: .rounded))
                 .onDisappear{
                     NSApplication.shared.terminate(nil)
                 }
@@ -58,6 +57,7 @@ struct WalrusDesktopApp: App{
                 in: 0...50,
                 
             )
+            .tint(.black)
             Button("wisdom!"){
                 settings.speak()
             }
@@ -75,13 +75,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if let window = NSApplication.shared.windows.first(where: {$0.identifier?.rawValue == "pet"}){
                 window.styleMask = [.borderless]
                 if let screen = window.screen ?? NSScreen.main {
-                    window.setFrame(screen.frame, display: true)
+                    window.setFrame(screen.frame, display:true)
                 }
                 window.backgroundColor = .clear
                 window.isOpaque = false
+                
                 window.level = NSWindow.Level(
-                    rawValue: Int(
-                        CGWindowLevelForKey(.desktopWindow))
+                  rawValue: Int(
+                  CGWindowLevelForKey(.desktopWindow))
                 )
                 window.ignoresMouseEvents = true
                 window.hasShadow = false

@@ -21,6 +21,9 @@ struct PetView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 200, height:200)
+                    .onTapGesture {
+                        settings.speak()
+                    }
                 
                 
                 if !settings.wisdom.isEmpty {
@@ -31,6 +34,14 @@ struct PetView: View {
                         .foregroundStyle(.black)
                         .offset(y:-90)
                     
+                }
+                if settings.speed == 0 {
+                    Text("eepy zzzzzzzzzzzz")
+                        .font(.system(size:14))
+                        .padding(10)
+                        .background(.white, in: RoundedRectangle(cornerRadius:12))
+                        .foregroundStyle(.black)
+                        .offset(y:-90)
                 }
             }
                 .position(position)
